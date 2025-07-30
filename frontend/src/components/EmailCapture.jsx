@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Heart, Mail, Loader2 } from 'lucide-react';
-import { mockEmailSubmission } from '../mock';
+import axios from 'axios';
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const API = `${BACKEND_URL}/api`;
 
 const EmailCapture = ({ variant = 'primary', ctaText = 'Découvrir Mendly dès sa sortie 💜' }) => {
   const [email, setEmail] = useState('');
@@ -17,11 +20,19 @@ const EmailCapture = ({ variant = 'primary', ctaText = 'Découvrir Mendly dès s
     setMessage('');
 
     try {
-      const result = await mockEmailSubmission(email);
-      setMessage(result.message);
+      const response = await axios.post(`${API}/email-subscription`, {
+        email,
+        source: variant === 'primary' ? 'hero' : 'final-cta'
+      });
+      
+      setMessage(response.data.message);
       setEmail('');
     } catch (error) {
-      setMessage('Une erreur est survenue. Réessaie plus tard.');
+      if (error.response?.status === 400) {
+        setMessage('Cet email est déjà enregistré !');
+      } else {
+        setMessage('Une erreur est survenue. Réessaie plus tard.');
+      }
     } finally {
       setIsLoading(false);
     }
