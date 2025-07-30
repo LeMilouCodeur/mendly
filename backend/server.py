@@ -70,6 +70,60 @@ async def get_status_checks():
     status_checks = await db.status_checks.find().to_list(1000)
     return [StatusCheck(**status_check) for status_check in status_checks]
 
+# Email Subscription Endpoints
+@api_router.post("/email-subscription", response_model=EmailSubscriptionResponse)
+async def create_email_subscription(input: EmailSubscriptionCreate, request: Request):
+    try:
+        # Check if email already exists
+        existing_subscription = await db.email_subscriptions.find_one({"email": input.email})
+        if existing_subscription:
+            raise HTTPException(status_code=400, detail="Cet email est déjà enregistré !")
+        
+        # Get client info
+        client_ip = request.client.host if request.client else None
+        user_agent = request.headers.get("user-agent", "")
+        
+        # Create subscription object
+        subscription_dict = input.dict()
+        subscription_obj = EmailSubscription(
+            **subscription_dict,
+            ip_address=client_ip,
+            user_agent=user_agent
+        )
+        
+        # Insert into database
+        result = await db.email_subscriptions.insert_one(subscription_obj.dict())
+        
+        if result.inserted_id:
+            logger.info(f"New email subscription: {input.email} from source: {input.source}")
+            return EmailSubscriptionResponse(
+                success=True, 
+                message="Email enregistré avec succès !"
+            )
+        else:
+            raise HTTPException(status_code=500, detail="Erreur lors de l'enregistrement")
+            
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error creating email subscription: {str(e)}")
+        raise HTTPException(status_code=500, detail="Une erreur est survenue. Réessaie plus tard.")
+
+@api_router.get("/email-subscriptions")
+async def get_email_subscriptions():
+    """Admin endpoint to get all email subscriptions"""
+    try:
+        subscriptions = await db.email_subscriptions.find().sort("timestamp", -1).to_list(1000)
+        total = len(subscriptions)
+        
+        return {
+            "subscriptions": [EmailSubscription(**sub) for sub in subscriptions],
+            "total": total
+        }
+    except Exception as e:
+        logger.error(f"Error fetching email subscriptions: {str(e)}")
+        raise HTTPException(status_code=500, detail="Erreur lors de la récupération des données")
+
 # Include the router in the main app
 app.include_router(api_router)
 
