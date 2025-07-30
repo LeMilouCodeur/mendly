@@ -91,23 +91,6 @@ const MentionsLegales = () => {
               </div>
             </section>
           </div>
-
-          {/* Contact CTA */}
-          <div className="mt-12 text-center bg-gradient-to-r from-mendly-violet/10 to-mendly-pink/10 rounded-xl p-8">
-            <h3 className="text-xl font-bold text-mendly-dark mb-4">
-              Une question ? Un souci ?
-            </h3>
-            <p className="text-mendly-dark/70 mb-6">
-              N'hésitez pas à nous contacter pour tout renseignement.
-            </p>
-            <a 
-              href="mailto:hello.mendly@gmail.com"
-              className="inline-flex items-center gap-2 bg-mendly-violet hover:bg-mendly-violet/90 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105"
-            >
-              <Mail className="w-4 h-4" />
-              Nous contacter
-            </a>
-          </div>
         </div>
       </main>
 
