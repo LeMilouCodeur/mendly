@@ -85,18 +85,29 @@ const EmailCapture = ({ variant = 'primary', ctaText = 'Découvrir Mendly dès s
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        <Input
-          type="email"
-          placeholder="ton@email.com"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="h-12 text-center text-lg border-mendly-violet/20 focus:border-mendly-violet"
-          required
-        />
+        <div className="relative">
+          <Input
+            type="email"
+            placeholder="ton@email.com"
+            value={email}
+            onChange={handleEmailChange}
+            className={`h-12 text-center text-lg transition-all duration-300 ${
+              isError 
+                ? 'border-red-400 focus:border-red-500 bg-red-50' 
+                : 'border-mendly-violet/20 focus:border-mendly-violet'
+            }`}
+            required
+          />
+          {isError && (
+            <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+              <AlertCircle className="w-5 h-5 text-red-500" />
+            </div>
+          )}
+        </div>
         
         <Button
           type="submit"
-          disabled={isLoading || !email}
+          disabled={isLoading}
           className="w-full h-12 bg-mendly-violet hover:bg-mendly-violet/90 transition-all duration-300 transform hover:scale-105 text-white font-semibold rounded-xl shadow-md"
         >
           {isLoading ? (
@@ -109,8 +120,19 @@ const EmailCapture = ({ variant = 'primary', ctaText = 'Découvrir Mendly dès s
       </form>
 
       {message && (
-        <div className="mt-4 p-3 bg-mendly-violet/10 border border-mendly-violet/20 rounded-lg text-center">
-          <p className="text-mendly-violet font-medium">{message}</p>
+        <div className={`mt-4 p-3 border rounded-lg text-center transition-all duration-300 ${
+          isError 
+            ? 'bg-red-50 border-red-200 text-red-700' 
+            : 'bg-mendly-violet/10 border-mendly-violet/20 text-mendly-violet'
+        }`}>
+          <div className="flex items-center justify-center gap-2">
+            {isError ? (
+              <AlertCircle className="w-4 h-4" />
+            ) : (
+              <Heart className="w-4 h-4" />
+            )}
+            <p className="font-medium">{message}</p>
+          </div>
         </div>
       )}
     </div>
