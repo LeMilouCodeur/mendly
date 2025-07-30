@@ -246,9 +246,13 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Email subscription endpoint (POST /api/email-subscription)"
-    - "Email retrieval endpoint (GET /api/email-subscriptions)"
-    - "Database operations and MongoDB integration"
+    - "Landing page navigation and design"
+    - "Email validation and submission (Hero section)"
+    - "Email validation and submission (Final CTA section)"
+    - "Error handling and user experience"
+    - "Legal pages navigation"
+    - "Responsive design"
+    - "Frontend-backend integration"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
