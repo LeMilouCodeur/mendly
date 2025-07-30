@@ -52,7 +52,13 @@ module.exports = {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
-  			}
+  			},
+  			// Mendly custom colors
+  			'mendly-violet': 'hsl(var(--mendly-violet))',
+  			'mendly-pink': 'hsl(var(--mendly-pink))',
+  			'mendly-light': 'hsl(var(--mendly-light))',
+  			'mendly-dark': 'hsl(var(--mendly-dark))',
+  			'mendly-card': 'hsl(var(--mendly-card))'
   		},
   		keyframes: {
   			'accordion-down': {
