@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import { Heart, Mail, Loader2 } from 'lucide-react';
+import { Heart, Mail, Loader2, AlertCircle } from 'lucide-react';
 import axios from 'axios';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -11,28 +11,62 @@ const EmailCapture = ({ variant = 'primary', ctaText = 'Découvrir Mendly dès s
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const [isError, setIsError] = useState(false);
+
+  // Email validation function
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const handleEmailChange = (e) => {
+    const newEmail = e.target.value;
+    setEmail(newEmail);
+    
+    // Clear previous messages when user starts typing
+    if (message) {
+      setMessage('');
+      setIsError(false);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!email) return;
+    
+    if (!email.trim()) {
+      setMessage('Veuillez saisir votre adresse email');
+      setIsError(true);
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      setMessage('Veuillez saisir une adresse email valide');
+      setIsError(true);
+      return;
+    }
 
     setIsLoading(true);
     setMessage('');
+    setIsError(false);
 
     try {
       const response = await axios.post(`${API}/email-subscription`, {
-        email,
+        email: email.trim(),
         source: variant === 'primary' ? 'hero' : 'final-cta'
       });
       
       setMessage(response.data.message);
+      setIsError(false);
       setEmail('');
     } catch (error) {
       if (error.response?.status === 400) {
         setMessage('Cet email est déjà enregistré !');
+      } else if (error.response?.status === 422) {
+        setMessage('Format d\'email invalide');
       } else {
         setMessage('Une erreur est survenue. Réessaie plus tard.');
       }
+      setIsError(true);
     } finally {
       setIsLoading(false);
     }
