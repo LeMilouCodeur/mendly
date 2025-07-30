@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Test the complete backend implementation for Mendly landing page email subscription system"
+user_problem_statement: "Test the complete Mendly landing page functionality with focus on email subscription system"
 
 backend:
   - task: "Email subscription endpoint (POST /api/email-subscription)"
