@@ -1,6 +1,6 @@
 import React from 'react';
 import { Target, Bot, AlertCircle } from 'lucide-react';
-import { mockData } from '../mock';
+import { staticData } from '../data/staticData';
 
 const BenefitsSection = () => {
   const iconMap = {
@@ -19,7 +19,7 @@ const BenefitsSection = () => {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 mb-12">
-          {mockData.benefits.map((benefit, index) => {
+          {staticData.benefits.map((benefit, index) => {
             const IconComponent = iconMap[benefit.emoji];
             return (
               <div 

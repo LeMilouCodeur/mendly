@@ -1,6 +1,6 @@
 import React from 'react';
 import { MessageSquare, Smartphone, HeartHandshake, BookOpen, PenTool, Settings } from 'lucide-react';
-import { mockData } from '../mock';
+import { staticData } from '../data/staticData';
 
 const ToolsSection = () => {
   const iconMap = {
@@ -21,7 +21,7 @@ const ToolsSection = () => {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {mockData.tools.map((tool, index) => {
+          {staticData.tools.map((tool, index) => {
             const IconComponent = iconMap[tool.emoji] || Settings;
             return (
               <div 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Users, Target, Brain } from 'lucide-react';
-import { mockData } from '../mock';
+import { staticData } from '../data/staticData';
 
 const FeaturesSection = () => {
   const iconMap = {
@@ -19,7 +19,7 @@ const FeaturesSection = () => {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {mockData.features.map((feature, index) => {
+          {staticData.features.map((feature, index) => {
             const IconComponent = iconMap[feature.emoji];
             return (
               <div 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { MessageCircle, UserCheck, Shield, ArrowRight } from 'lucide-react';
-import { mockData } from '../mock';
+import { staticData } from '../data/staticData';
 
 const HowItWorksSection = () => {
   const icons = [MessageCircle, UserCheck, Shield];
@@ -15,7 +15,7 @@ const HowItWorksSection = () => {
         </div>
 
         <div className="space-y-8">
-          {mockData.steps.map((step, index) => {
+          {staticData.steps.map((step, index) => {
             const IconComponent = icons[index];
             return (
               <div 
@@ -37,7 +37,7 @@ const HowItWorksSection = () => {
                   </p>
                 </div>
 
-                {index < mockData.steps.length - 1 && (
+                {index < staticData.steps.length - 1 && (
                   <div className="hidden md:flex flex-shrink-0">
                     <ArrowRight className="w-6 h-6 text-mendly-violet/40" />
                   </div>
