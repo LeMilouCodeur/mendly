@@ -8,6 +8,8 @@ import ToolsSection from './components/ToolsSection';
 import BenefitsSection from './components/BenefitsSection';
 import FinalCTASection from './components/FinalCTASection';
 import Footer from './components/Footer';
+import MentionsLegales from './components/MentionsLegales';
+import PolitiqueConfidentialite from './components/PolitiqueConfidentialite';
 
 const MendlyLandingPage = () => {
   return (
@@ -29,6 +31,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MendlyLandingPage />} />
+          <Route path="/mentions-legales" element={<MentionsLegales />} />
+          <Route path="/politique-confidentialite" element={<PolitiqueConfidentialite />} />
         </Routes>
       </BrowserRouter>
     </div>

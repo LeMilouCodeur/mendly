@@ -1,5 +1,6 @@
 import React from 'react';
-import { Heart, Mail, Instagram, FileText } from 'lucide-react';
+import { Heart, Mail, Instagram, FileText, Shield } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -17,13 +18,13 @@ const Footer = () => {
           </p>
 
           {/* Links */}
-          <div className="flex items-center justify-center gap-8 flex-wrap">
+          <div className="flex items-center justify-center gap-8 flex-wrap mb-6">
             <a 
-              href="mailto:contact@mendly.app" 
+              href="mailto:hello.mendly@gmail.com" 
               className="flex items-center gap-2 text-white/70 hover:text-mendly-pink transition-colors duration-300"
             >
               <Mail className="w-4 h-4" />
-              <span>Contact</span>
+              <span>Contact : hello.mendly@gmail.com</span>
             </a>
             
             <a 
@@ -35,14 +36,25 @@ const Footer = () => {
               <Instagram className="w-4 h-4" />
               <span>Instagram</span>
             </a>
-            
-            <a 
-              href="/mentions-legales" 
-              className="flex items-center gap-2 text-white/70 hover:text-mendly-pink transition-colors duration-300"
+          </div>
+
+          {/* Legal Links */}
+          <div className="flex items-center justify-center gap-6 flex-wrap">
+            <Link 
+              to="/mentions-legales" 
+              className="flex items-center gap-2 text-white/70 hover:text-mendly-violet transition-colors duration-300 text-sm"
             >
               <FileText className="w-4 h-4" />
               <span>Mentions légales</span>
-            </a>
+            </Link>
+            
+            <Link 
+              to="/politique-confidentialite" 
+              className="flex items-center gap-2 text-white/70 hover:text-mendly-violet transition-colors duration-300 text-sm"
+            >
+              <Shield className="w-4 h-4" />
+              <span>Politique de confidentialité</span>
+            </Link>
           </div>
         </div>
 
