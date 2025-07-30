@@ -101,3 +101,73 @@
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
+
+user_problem_statement: "Test the complete backend implementation for Mendly landing page email subscription system"
+
+backend:
+  - task: "Email subscription endpoint (POST /api/email-subscription)"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "✅ All email subscription tests passed: Valid email format accepted, duplicate emails properly rejected with 400 error, invalid email formats rejected with 422 error, edge cases handled correctly (empty fields, very long emails, special characters). Source field ('hero', 'final-cta', 'unknown') properly captured and stored."
+
+  - task: "Email retrieval endpoint (GET /api/email-subscriptions)"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "✅ Email retrieval endpoint working correctly: Returns all stored email subscriptions with proper structure including email, source, timestamp, id, ip_address, and user_agent fields. Response includes both 'subscriptions' array and 'total' count."
+
+  - task: "Database operations and MongoDB integration"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "✅ Database operations verified: Emails properly stored in email_subscriptions collection, uniqueness constraint working (no duplicates found), source field properly captured with all expected values ('hero', 'final-cta', 'unknown'), all required fields present in stored documents."
+
+  - task: "API error handling and validation"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "✅ Error handling working correctly: Returns 400 for duplicate emails with French message 'Cet email est déjà enregistré !', returns 422 for invalid email formats, handles edge cases appropriately, proper HTTP status codes returned."
+
+metadata:
+  created_by: "testing_agent"
+  version: "1.0"
+  test_sequence: 1
+  run_ui: false
+
+test_plan:
+  current_focus:
+    - "Email subscription endpoint (POST /api/email-subscription)"
+    - "Email retrieval endpoint (GET /api/email-subscriptions)"
+    - "Database operations and MongoDB integration"
+  stuck_tasks: []
+  test_all: false
+  test_priority: "high_first"
+
+agent_communication:
+  - agent: "testing"
+    message: "Backend testing completed successfully. All 16 tests passed with 100% success rate. Email subscription system is fully functional with proper validation, error handling, and database integration. MongoDB operations verified - 5 email subscriptions stored with no duplicates detected. All source field values ('hero', 'final-cta', 'unknown') properly captured. System ready for production use."
