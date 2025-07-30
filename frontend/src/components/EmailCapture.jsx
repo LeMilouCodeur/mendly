@@ -84,7 +84,7 @@ const EmailCapture = ({ variant = 'primary', ctaText = 'Découvrir Mendly dès s
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4" noValidate>
         <div className="relative">
           <Input
             type="email"
@@ -96,7 +96,6 @@ const EmailCapture = ({ variant = 'primary', ctaText = 'Découvrir Mendly dès s
                 ? 'border-red-400 focus:border-red-500 bg-red-50' 
                 : 'border-mendly-violet/20 focus:border-mendly-violet'
             }`}
-            required
           />
           {isError && (
             <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
